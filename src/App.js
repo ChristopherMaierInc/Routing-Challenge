@@ -5,8 +5,14 @@ import {
   Link,
   Redirect,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 import './App.css';
+import Hello from './components/Hello'
+import HelloYou from './components/HelloYou'
+import Goodbye from './components/Goodbye'
+import Contact from './components/Contact'
+import NoMatch from './components/NoMatch'
+import Login from './components/Login'
 
 class App extends Component {
 
@@ -51,7 +57,7 @@ class App extends Component {
                 return <Redirect to="/Login" />
               }
             }} />
-            <Route path="/login" component={ LogIn } />
+            <Route path="/login" component={ Login } />
             <Route component={NoMatch}/>
           </Switch>
 
@@ -60,35 +66,5 @@ class App extends Component {
     );
   }
 }
-
-const Hello = () => (
-  <p>Hello world!</p>
-)
-
-const HelloYou = (props) => (
-  <p>Hello { props.match.params.name }!</p>
-)
-
-const Goodbye = () => (
-  <p>Bi-world!</p>
-)
-
-const Contact = () => (
-<div>
-  <h1>Woah brah!</h1>
-  <p>You've made it to the </p>
-  <em>CONTACT PAGE!!!</em>
-</div>
-)
-
-const LogIn = () => (
-  <p>LOGGGGGGGGGGGGGGGGGGGGGGGGG    IN!!!!!!!!!!!!!!!!</p>
-)
-
-const NoMatch = ({ location }) => (
-  <div>
-    <h3>404: No match for <code>{ location.pathname }</code></h3>
-  </div>
-)
 
 export default App;

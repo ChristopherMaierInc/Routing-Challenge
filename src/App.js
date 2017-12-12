@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Redirect,
+  Switch
 } from 'react-router-dom'
 import './App.css';
 
@@ -36,20 +37,23 @@ class App extends Component {
           <Link to="/contact"> Contact</Link> |
           <button className={this.state.loggedIn ? 'LoggedIn' : ''} onClick={ this.toggleLoggedIn }>{ this.state.loggedIn ? 'Log out' : 'Log in' }</button><br /><br />
           <hr />
-          <Route exact path="/hello/:name" component={HelloYou} />
-          <Route exact path="/hello" component={ Hello } />
-          <Route path="/goodbye" component={ Goodbye } />
-          <Route path="/contact" component={() => {
-            if (this.state.loggedIn) {
-              // All good, proceed
-              return <Contact />
-            } else {
-              // Kick 'em out!
-              return <Redirect to="/Login" />
-            }
-          }} />
-          <Route path="/login" component={ LogIn } />
-
+          <Switch>
+            <Route exact path="/" />
+            <Route exact path="/hello/:name" component={HelloYou} />
+            <Route exact path="/hello" component={ Hello } />
+            <Route path="/goodbye" component={ Goodbye } />
+            <Route path="/contact" component={() => {
+              if (this.state.loggedIn) {
+                // All good, proceed
+                return <Contact />
+              } else {
+                // Kick 'em out!
+                return <Redirect to="/Login" />
+              }
+            }} />
+            <Route path="/login" component={ LogIn } />
+            <Route component={NoMatch}/>
+          </Switch>
 
         </div>
       </Router>
@@ -79,6 +83,12 @@ const Contact = () => (
 
 const LogIn = () => (
   <p>LOGGGGGGGGGGGGGGGGGGGGGGGGG    IN!!!!!!!!!!!!!!!!</p>
+)
+
+const NoMatch = ({ location }) => (
+  <div>
+    <h3>404: No match for <code>{ location.pathname }</code></h3>
+  </div>
 )
 
 export default App;
